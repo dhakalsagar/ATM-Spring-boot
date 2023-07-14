@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Deposit Form</title>
+</head>
+<body>
+  <h1>Make a Deposit</h1>
+  <form id="depositForm" action="/api/accounts/{accountId}/deposit" method="post">
+    <input type="hidden" name="_method" value="post">
+    <input type="hidden" name="accountId" value="{{accountId}}">
+    
+    <label for="amount">Amount:</label>
+    <input type="text" id="amount" name="amount" required><br><br>
+    
+    <input type="submit" value="Deposit">
+  </form>
+</body>
+</html>
