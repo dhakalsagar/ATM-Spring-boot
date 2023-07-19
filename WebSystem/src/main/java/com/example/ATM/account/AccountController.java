@@ -31,32 +31,67 @@ public class AccountController {
     }
 
     @PostMapping("/deposit")
-    public ResponseEntity<String> deposit(@RequestParam long accountId, @RequestParam double amount, HttpSession session) {
+    public ResponseEntity<String> deposit(@RequestParam double amount, HttpSession session) {
         UserInfo user = (UserInfo) session.getAttribute("user");
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication required");
         }
 
-        accountService.deposit(accountId, amount);
+        String accountNumber = user.getAccountNumber();
+        accountService.deposit(accountNumber, amount);
         return ResponseEntity.ok("Deposit successful");
     }
+
     
     @GetMapping("/withdraw")
-    public String showWithDrawform(HttpSession session) {
-    	UserInfo user = (UserInfo) session.getAttribute("user");
+    public String showWithdrawForm(HttpSession session) {
+        UserInfo user = (UserInfo) session.getAttribute("user");
         if (user == null) {
             return "redirect:/user/login";
         }
         return "withdraw";
     }
-    @PostMapping("/withdraw")
-	public ResponseEntity<String> widhDraw(@RequestParam long accountId, @RequestParam double amount, HttpSession session) {
-		  UserInfo user = (UserInfo) session.getAttribute("user");
-	        if (user == null) {
-	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication required");
-	        }
 
-	        accountService.withDraw(accountId, amount);
-	        return ResponseEntity.ok("withdraw successful");
-	    }
+    @PostMapping("/withdraw")
+    public ResponseEntity<String> withdraw(@RequestParam double amount, HttpSession session) {
+        UserInfo user = (UserInfo) session.getAttribute("user");
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication required");
+        }
+
+        String accountNumber = user.getAccountNumber();
+        boolean withdrawalSuccessful = accountService.withdraw(accountNumber, amount);
+        if (withdrawalSuccessful) {
+            return ResponseEntity.ok("Withdrawal successful");
+        } else {
+            return ResponseEntity.ok("Insufficient balance or invalid account");
+        }
+
+    }
+    @GetMapping("/transfer")
+    public String showTransferForm(HttpSession session, Model model) {
+        UserInfo user = (UserInfo) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/user/login";
+        }
+        model.addAttribute("user", user);
+        return "transfer";
+    }
+
+    @PostMapping("/transfer")
+    public ResponseEntity<String> transfer(@RequestParam String accountNumber, @RequestParam double amount, HttpSession session) {
+        UserInfo user = (UserInfo) session.getAttribute("user");
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication required");
+        }
+
+        String senderAccountNumber = user.getAccountNumber();
+        boolean transferSuccessful = accountService.transfer(senderAccountNumber, accountNumber, amount);
+        if (transferSuccessful) {
+            return ResponseEntity.ok("Transfer successful");
+        } else {
+            return ResponseEntity.ok("Insufficient balance or invalid account");
+        }
+    }
+
 }

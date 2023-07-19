@@ -75,7 +75,8 @@ section span:hover
 section .signin
 {
   position: absolute;
-  width: 400px;
+  width: 30%;
+  height: 700px;
   background: #222;  
   z-index: 1000;
   display: flex;
@@ -95,18 +96,22 @@ section .signin .content
   flex-direction: column;
   gap: 40px;
 }
-section .signin .content h2 
-{
-  font-size: 2em;
-  color: #0f0;
-  text-transform: uppercase;
+section .signin .content .sign_in_head
+{color:  #0f0;
+}
+section .signin .content .sign_in_head p
+{color:  #0f0;
+font-size: 28px;
+font-weight: 600;
+font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+margin-top: -140px;
 }
 section .signin .content .form 
 {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 70px;
 }
 section .signin .content .form .inputBox
 {
@@ -197,10 +202,10 @@ input[type="submit"]:active
 .container {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      grid-gap: 20px;
+      grid-gap: 100px 20px;
       width: 100%;
       margin: 0 auto;
-      padding: 10px;
+      padding: 5px;
     }
     
     .grid {
@@ -215,11 +220,11 @@ input[type="submit"]:active
     }
     
     .grid:nth-child(odd) {
-      padding-left: 10px;
+      padding-left: 5px;
     }
     
     .grid:nth-child(even) {
-      padding-right: 10px;
+      padding-right: 5px;
     }
     
     .grid5 {
@@ -254,12 +259,12 @@ input[type="submit"]:active
 <!--<span th:text="${name}"></span>-->
    <div class="signin"> 
     <div class="content"> 
-     <p>選択してください</p>
+    <div class="sign_in_head"><p>情報入力してください</p></div> 
 	  <div class="container">
                     <div class="grid hovergrid"><a href="/api/accounts/withdraw">お引き出し</a></div>
                     <div class="grid hovergrid"><a href="/api/accounts/deposit">入れ預金</a></div>
-                    <div class="grid hovergrid">お振込み</div>
-                    <div class="grid hovergrid"><a href="#">ログアウト</a></div>
+                    <div class="grid hovergrid"><a href="/api/accounts/transfer">お振込み</a></div>
+                    <div class="grid hovergrid"><a href="/api/transactions/history">履歴表示</a></div>
                     <div class="grid grid5 hovergrid"><a href="/user/logout">ログアウト</a></div>
                 </div>
     </div> 

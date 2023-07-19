@@ -1,0 +1,74 @@
+ <div class="sign_in_head"><p>情報入力してください</p></div> 
+    <form id="depositForm" action="/api/accounts/withdraw" method="post">
+     <div class="form"> 
+
+      <div class="inputBox"> 
+
+    <input type="text" id="amount" name="amount" placeholder="Amount" required><br><br>
+
+      </div> 
+
+
+      <div class="inputBox"> 
+
+        <input type="submit" value="Withdraw">
+
+     </div> 
+     </form>
+     
+      <form id="depositForm" action="/api/accounts/deposit" method="post">
+		  <form action="/api/accounts/transfer" method="post">
+        <label for="accountNumber">Recipient Account Number:</label>
+        <input type="text" id="accountNumber" name="accountNumber" required><br><br>
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" name="amount" required><br><br>
+        <input type="submit" value="Transfer">
+    </form>
+    
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Account Name</th>
+            <th>Account Number</th>
+        </tr>
+        <!-- Iterate over transactions and display each transaction -->
+        <th:block th:each="transaction : ${transactions}">
+            <tr>
+                <td th:text="${transaction.transactionDate}"></td>
+                <td th:text="${transaction.transactionType}"></td>
+                <td th:text="${transaction.amount}"></td>
+                <td th:text="${transaction.accountName}"></td>
+                <td th:text="${transaction.accountNumber}"></td>
+            </tr>
+        </th:block>
+    </table>
+    
+    <h1>Transaction History</h1>
+    
+    <table>
+    <thead>
+        <tr>
+            <th>Transaction ID</th>
+            <th>Transaction Date</th>
+            <th>Transaction Type</th>
+            <th>Amount</th>
+            <th>Sender Name</th>
+            <th>Sender Account Number</th>
+            <th>Receiver Name</th>
+            <th>Receiver Account Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="transaction : ${transactions}">
+            <td th:text="${transaction.id}"></td>
+            <td th:text="${transaction.transactionDate}"></td>
+            <td th:text="${transaction.transactionType}"></td>
+            <td th:text="${transaction.amount}"></td>
+            <td th:text="${transaction.senderName}"></td>
+            <td th:text="${transaction.senderAccountNumber}"></td>
+            <td th:text="${transaction.receiverName}"></td>
+            <td th:text="${transaction.receiverAccountNumber}"></td>
+        </tr>
+    </tbody>

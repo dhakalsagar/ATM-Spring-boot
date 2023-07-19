@@ -8,7 +8,7 @@
 
   <link rel="stylesheet" href="./style.css"> 
     <style>
-		@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+		@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap');
 *
 {
   margin: 0;
@@ -75,7 +75,8 @@ section span:hover
 section .signin
 {
   position: absolute;
-  width: 400px;
+  width: 30%;
+  height: 700px;
   background: #222;  
   z-index: 1000;
   display: flex;
@@ -95,18 +96,22 @@ section .signin .content
   flex-direction: column;
   gap: 40px;
 }
-section .signin .content h2 
-{
-  font-size: 2em;
-  color: #0f0;
-  text-transform: uppercase;
+section .signin .content .sign_in_head
+{color:  #0f0;
+}
+section .signin .content .sign_in_head p
+{color:  #0f0;
+font-size: 28px;
+font-weight: 600;
+font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+margin-top: -140px;
 }
 section .signin .content .form 
 {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 70px;
 }
 section .signin .content .form .inputBox
 {
@@ -170,9 +175,7 @@ section .signin .content .form .inputBox i
   letter-spacing: 0.05em;
   cursor: pointer;
 }
-h3{color:  #0f0;
-font-size: large;
-font-weight: 600;}
+
 
 input[type="submit"]:active
 {
@@ -208,26 +211,21 @@ input[type="submit"]:active
 
     <div class="content"> 
 
-     <h3>預金入れ入力してください。</h3> 
-    <form id="depositForm" action="/api/accounts/deposit" method="post">
+     <div class="sign_in_head"><p>お預金入れてください</p></div> 
+     <form id="depositForm" action="/api/accounts/deposit" method="post">
      <div class="form"> 
 
       <div class="inputBox"> 
 
-    <input type="text" id="accountId" name="accountId" placeholder="Account ID"><br><br>
+       <input type="text" id="amount" name="amount" placeholder="" required><i>金額入力：</i>
 
       </div> 
 
       <div class="inputBox"> 
 
-    <input type="text" id="amount" name="amount" placeholder="Amount" required><br><br>
+       <input type="submit" value="お預金入れ"> 
 
       </div> 
-
-
-      <div class="inputBox"> 
-
-        <input type="submit" value="Deposit">
 
      </div> 
      </form>
@@ -236,7 +234,7 @@ input[type="submit"]:active
    </div> 
 
   </section> <!-- partial --> 
-
+<script src="/script.js"></script>
  </body>
 
 </html>

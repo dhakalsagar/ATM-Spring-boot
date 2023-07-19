@@ -19,11 +19,15 @@ public class UserInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     private String name;
+    
     private String password;
     
     @Column(unique = true)
     private String accountNumber;
+    
+    
     @OneToOne(cascade = CascadeType.ALL)
     private Account account;
 }

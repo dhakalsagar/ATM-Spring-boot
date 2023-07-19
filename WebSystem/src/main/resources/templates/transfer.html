@@ -211,19 +211,26 @@ input[type="submit"]:active
 
     <div class="content"> 
 
-     <div class="sign_in_head"><p>お預金入れてください</p></div> 
-     <form id="depositForm" action="/api/accounts/deposit" method="post">
+     <div class="sign_in_head"><p>情報入力してください</p></div> 
+	 <form action="/api/accounts/transfer" method="post">
      <div class="form"> 
 
       <div class="inputBox"> 
 
-       <input type="text" id="amount" name="amount" placeholder="" required><i>金額入力：</i>
+       <input type="text" id="accountNumber" name="accountNumber" placeholder="" required/> <i>口座番号入力</i> 
 
       </div> 
 
       <div class="inputBox"> 
 
-       <input type="submit" value="お預金入れ"> 
+       <input type="number" id="amount" name="amount" placeholder="" required/> <i>振込金額入力</i> 
+
+      </div> 
+
+
+      <div class="inputBox"> 
+
+       <input type="submit" value="お振込"> 
 
       </div> 
 

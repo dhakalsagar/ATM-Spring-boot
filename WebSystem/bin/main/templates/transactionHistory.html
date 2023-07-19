@@ -211,24 +211,31 @@ input[type="submit"]:active
 
     <div class="content"> 
 
-     <div class="sign_in_head"><p>お預金入れてください</p></div> 
-     <form id="depositForm" action="/api/accounts/deposit" method="post">
+     <div class="sign_in_head"><p>履歴表示</p></div> 
+     
      <div class="form"> 
 
-      <div class="inputBox"> 
-
-       <input type="text" id="amount" name="amount" placeholder="" required><i>金額入力：</i>
-
-      </div> 
-
-      <div class="inputBox"> 
-
-       <input type="submit" value="お預金入れ"> 
-
-      </div> 
-
+      <table>
+        <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Account Name</th>
+            <th>Account Number</th>
+        </tr>
+        <!-- Iterate over transactions and display each transaction -->
+        <th:block th:each="transaction : ${transactions}">
+            <tr>
+                <td th:text="${transaction.transactionDate}"></td>
+                <td th:text="${transaction.transactionType}"></td>
+                <td th:text="${transaction.amount}"></td>
+                <td th:text="${transaction.accountName}"></td>
+                <td th:text="${transaction.accountNumber}"></td>
+            </tr>
+        </th:block>
+    </table>
      </div> 
-     </form>
+
     </div> 
 
    </div> 
