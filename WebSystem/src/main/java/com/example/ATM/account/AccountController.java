@@ -31,16 +31,28 @@ public class AccountController {
     }
 
     @PostMapping("/deposit")
-    public ResponseEntity<String> deposit(@RequestParam double amount, HttpSession session) {
+    public String deposit(@RequestParam double amount, HttpSession session, Model model) {
         UserInfo user = (UserInfo) session.getAttribute("user");
+
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication required");
+            model.addAttribute("errorMessage", "Authentication required");
+            return "error-page";
         }
 
         String accountNumber = user.getAccountNumber();
-        accountService.deposit(accountNumber, amount);
-        return ResponseEntity.ok("Deposit successful");
+        try {
+            accountService.deposit(accountNumber, amount);
+            model.addAttribute("transactionType", "Deposit");
+            model.addAttribute("success", true);
+        } catch (IllegalArgumentException ex) {
+            model.addAttribute("transactionType", "Deposit");
+            model.addAttribute("success", false);
+        }
+
+        model.addAttribute("amount", amount);
+        return "success";
     }
+
 
     
     @GetMapping("/withdraw")
@@ -53,18 +65,23 @@ public class AccountController {
     }
 
     @PostMapping("/withdraw")
-    public ResponseEntity<String> withdraw(@RequestParam double amount, HttpSession session) {
+    public String withdraw(@RequestParam double amount, HttpSession session, Model model) {
         UserInfo user = (UserInfo) session.getAttribute("user");
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication required");
+        	model.addAttribute("errorMessage", "Authentication Required");
+            return "error-page";
         }
 
         String accountNumber = user.getAccountNumber();
         boolean withdrawalSuccessful = accountService.withdraw(accountNumber, amount);
         if (withdrawalSuccessful) {
-            return ResponseEntity.ok("Withdrawal successful");
+           model.addAttribute("transactionType", "Withdraw");
+           model.addAttribute("success", true);
+           return "success";
         } else {
-            return ResponseEntity.ok("Insufficient balance or invalid account");
+        	model.addAttribute("transactionType", "Withdraw");
+            model.addAttribute("success", false);
+        	return "success";
         }
 
     }
@@ -79,18 +96,33 @@ public class AccountController {
     }
 
     @PostMapping("/transfer")
-    public ResponseEntity<String> transfer(@RequestParam String accountNumber, @RequestParam double amount, HttpSession session) {
+    public String transfer(@RequestParam String accountNumber, @RequestParam double amount, HttpSession session, Model model) {
         UserInfo user = (UserInfo) session.getAttribute("user");
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication required");
+        	model.addAttribute("errorMessage", "Authentication Required");
+            return "error-page";
         }
-
+        
         String senderAccountNumber = user.getAccountNumber();
         boolean transferSuccessful = accountService.transfer(senderAccountNumber, accountNumber, amount);
+        model.addAttribute("transactionType", "Transfer");
+        model.addAttribute("amount", amount);
+
         if (transferSuccessful) {
-            return ResponseEntity.ok("Transfer successful");
+            model.addAttribute("success", true);
+            return "success";
         } else {
-            return ResponseEntity.ok("Insufficient balance or invalid account");
+            model.addAttribute("success", false);
+            return "success";
+        	}
+     }
+    @ControllerAdvice
+    public class GlobalExceptionHandler {
+
+        @ExceptionHandler(IllegalArgumentException.class)
+        public String handleIllegalArgumentException(IllegalArgumentException ex, Model model) {
+            model.addAttribute("errorMessage", ex.getMessage());
+            return "error-page"; // Replace "error-page" with the name of your error page template
         }
     }
 

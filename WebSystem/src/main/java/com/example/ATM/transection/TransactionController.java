@@ -1,5 +1,7 @@
 package com.example.ATM.transection;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,50 +36,52 @@ public class TransactionController {
 
         Account account = user.getAccount();
         List<Transaction> transactions = account.getTransactions();
-
+        
+        Collections.sort(transactions, Comparator.comparing(Transaction::getTransactionDate).reversed());
         model.addAttribute("transactions", transactions);
+        
         return "checkSession"; // Modify the view name accordingly
     }
 
-
-    @PostMapping("/deposit")
-    public ResponseEntity<String> deposit(@RequestParam String accountNumber, @RequestParam double amount, HttpSession session) {
-        Account account = accountService.getAccountByAccountNumber(accountNumber);
-        if (account != null) {
-            accountService.deposit(accountNumber, amount);
-            return ResponseEntity.ok("Deposit successful");
-        }
-        return ResponseEntity.ok("Invalid account");
-    }
-
-    @PostMapping("/withdraw")
-    public ResponseEntity<String> withdraw(@RequestParam String accountNumber, @RequestParam double amount, HttpSession session) {
-        Account account = accountService.getAccountByAccountNumber(accountNumber);
-        if (account != null) {
-            boolean withdrawalSuccessful = accountService.withdraw(accountNumber, amount);
-            if (withdrawalSuccessful) {
-                return ResponseEntity.ok("Withdrawal successful");
-            } else {
-                return ResponseEntity.ok("Insufficient balance");
-            }
-        }
-        return ResponseEntity.ok("Invalid account");
-    }
-
-    @PostMapping("/transfer")
-    public ResponseEntity<String> transfer(@RequestParam String senderAccountNumber, @RequestParam String receiverAccountNumber, @RequestParam double amount, HttpSession session) {
-        Account senderAccount = accountService.getAccountByAccountNumber(senderAccountNumber);
-        Account receiverAccount = accountService.getAccountByAccountNumber(receiverAccountNumber);
-
-        if (senderAccount != null && receiverAccount != null) {
-            boolean transferSuccessful = accountService.transfer(senderAccountNumber, receiverAccountNumber, amount);
-            if (transferSuccessful) {
-                return ResponseEntity.ok("Transfer successful");
-            } else {
-                return ResponseEntity.ok("Insufficient balance");
-            }
-        }
-        return ResponseEntity.ok("Invalid accounts");
-    }
+//
+//    @PostMapping("/deposit")
+//    public ResponseEntity<String> deposit(@RequestParam String accountNumber, @RequestParam double amount, HttpSession session) {
+//        Account account = accountService.getAccountByAccountNumber(accountNumber);
+//        if (account != null) {
+//            accountService.deposit(accountNumber, amount);
+//            return ResponseEntity.ok("Deposit successful");
+//        }
+//        return ResponseEntity.ok("Invalid account");
+//    }
+//
+//    @PostMapping("/withdraw")
+//    public ResponseEntity<String> withdraw(@RequestParam String accountNumber, @RequestParam double amount, HttpSession session) {
+//        Account account = accountService.getAccountByAccountNumber(accountNumber);
+//        if (account != null) {
+//            boolean withdrawalSuccessful = accountService.withdraw(accountNumber, amount);
+//            if (withdrawalSuccessful) {
+//                return ResponseEntity.ok("Withdrawal successful");
+//            } else {
+//                return ResponseEntity.ok("Insufficient balance");
+//            }
+//        }
+//        return ResponseEntity.ok("Invalid account");
+//    }
+//
+//    @PostMapping("/transfer")
+//    public ResponseEntity<String> transfer(@RequestParam String senderAccountNumber, @RequestParam String receiverAccountNumber, @RequestParam double amount, HttpSession session) {
+//        Account senderAccount = accountService.getAccountByAccountNumber(senderAccountNumber);
+//        Account receiverAccount = accountService.getAccountByAccountNumber(receiverAccountNumber);
+//
+//        if (senderAccount != null && receiverAccount != null) {
+//            boolean transferSuccessful = accountService.transfer(senderAccountNumber, receiverAccountNumber, amount);
+//            if (transferSuccessful) {
+//                return ResponseEntity.ok("Transfer successful");
+//            } else {
+//                return ResponseEntity.ok("Insufficient balance");
+//            }
+//        }
+//        return ResponseEntity.ok("Invalid accounts");
+//    }
 }
-
+//

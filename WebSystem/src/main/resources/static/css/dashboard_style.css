@@ -1,0 +1,117 @@
+body {
+      font-family: 'Quicksand', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 600px;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      background-color: #fff;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 36px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .menu-item {
+      position: relative;
+      display: inline-block;
+      padding: 15px 40px;
+      border-radius: 40px;
+      background-color: #FFCF00;
+      color: #000;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+  
+    .menu-item:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 40px;
+      background-image: linear-gradient(90deg, #00C0FF 0%, #FFCF00 49%, #FC4F4F 80%, #00C0FF 100%);
+      z-index: -1;
+      transition: opacity 0.3s;
+      opacity: 0;
+    }
+
+    .menu-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .menu-item:hover:before {
+      opacity: 1;
+    }
+	
+	.menu-item_history {
+      position: relative;
+      display: inline-block;
+      padding: 15px 40px;
+      border-radius: 40px;
+      background-color: #FFCF00;
+      color: #000;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .menu-item_history:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 40px;
+      background-image: linear-gradient(90deg, #00C0FF 0%, #FFCF00 49%, #FC4F4F 80%, #00C0FF 100%);
+      z-index: -1;
+      transition: opacity 0.3s;
+      opacity: 0;
+    }
+
+    .menu-item_history:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .menu-item_history:hover:before {
+      opacity: 1;
+    }
+
+    .logout {
+      background-color: #FC4F4F;
+      color: #fff;
+    }
+
+    .footer {
+      margin-top: 30px;
+      color: #555;
+      font-size: 16px;
+    }

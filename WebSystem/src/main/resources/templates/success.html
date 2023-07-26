@@ -1,10 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>確定</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/success.css">
 </head>
 <body>
-success
+	advertizement
+    <div class="container">
+        <div th:class="${!success} ? 'logo error-logo' : 'logo success-logo'"></div>
+        <h1>自分の持ち物を忘れないでください</h1>
+        
+        <p th:if="${transactionType eq 'Deposit'}"
+           th:class="${success} ? 'success-message' : 'error-message'"
+           th:text="${success} ? '入金成功！' : '入金額が上限を超えています。'"></p>
+           
+        <p th:if="${transactionType eq 'Withdraw'}"
+           th:class="${success} ? 'success-message' : 'error-message'"
+           th:text="${success} ? '出金成功！' : '残高不足またはアカウントが無効です。'"></p>
+           
+        <p th:if="${transactionType eq 'Transfer'}"
+           th:class="${success} ? 'success-message' : 'error-message'"
+           th:text="${success} ? '送金成功！' : '残高不足またはアカウントが無効です。'"></p>
+           
+        <p class="amount">金額: <span th:text="${amount}">0.00</span>円</p>
+        <a href="/user/dashboard" class="return-btn">TOP へ戻る</a>
+    </div>
 </body>
+
+
 </html>

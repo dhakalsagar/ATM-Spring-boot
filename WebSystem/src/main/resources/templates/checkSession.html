@@ -1,31 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Transaction History</title>
-    <style>
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    th {
-        text-align: center;
-        padding: 10px;
-        background-color: #f2f2f2;
-        border: 1px solid #ddd;
-    }
-
-    td {
-        text-align: center;
-        padding: 10px;
-        border: 1px solid #ddd;
-    }
-    h1{
-		text-align: center;
-	}
-    
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>履歴表示</title>
+  <link rel="stylesheet" href="/css/history.css">
 </head>
 <body>
     <h1 >履歴表示</h1>
@@ -44,8 +23,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr th:each="transaction : ${transactions}">
-<!--            <td th:text="${transaction.id}"></td>-->
+			<tr th:each="transaction, iterStat : ${transactions}" th:if="${iterStat.index} &lt; 20">
             <td th:text="${transaction.transactionDate}"></td>
             <td th:text="${transaction.transactionType}"></td>
             <td th:text="${transaction.amount}"></td>
@@ -56,6 +34,7 @@
         </tr>
     </tbody>
 </table>
+ <button class="return_btn"><a href="/user/dashboard">TOP へ戻る</a></button>
 </body>
 </html>
 
