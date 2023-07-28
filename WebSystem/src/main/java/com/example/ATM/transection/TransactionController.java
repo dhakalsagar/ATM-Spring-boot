@@ -40,9 +40,14 @@ public class TransactionController {
         Collections.sort(transactions, Comparator.comparing(Transaction::getTransactionDate).reversed());
         model.addAttribute("transactions", transactions);
         
+        double totalBalance = account.getRemainingBalance();
+        System.out.println("total balance is "+totalBalance);
+        
+        model.addAttribute("totalBalance", totalBalance);
+        
         return "checkSession"; // Modify the view name accordingly
     }
-
+    
 //
 //    @PostMapping("/deposit")
 //    public ResponseEntity<String> deposit(@RequestParam String accountNumber, @RequestParam double amount, HttpSession session) {

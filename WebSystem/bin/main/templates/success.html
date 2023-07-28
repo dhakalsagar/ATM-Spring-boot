@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="/css/success.css">
 </head>
 <body>
-	advertizement
     <div class="container">
         <div th:class="${!success} ? 'logo error-logo' : 'logo success-logo'"></div>
         <h1>自分の持ち物を忘れないでください</h1>
@@ -25,6 +24,7 @@
            th:class="${success} ? 'success-message' : 'error-message'"
            th:text="${success} ? '送金成功！' : '残高不足またはアカウントが無効です。'"></p>
            
+        
         <p class="amount">金額: <span th:text="${amount}">0.00</span>円</p>
         <a href="/user/dashboard" class="return-btn">TOP へ戻る</a>
     </div>

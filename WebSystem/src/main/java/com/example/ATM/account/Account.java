@@ -28,7 +28,7 @@ public class Account {
     private Long id;
     private String name;
     private String accountNumber;
-    private double remainingBalance; //0.00+1000 = 1000
+    private double remainingBalance; 
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Transaction> transactions = new ArrayList<>();
