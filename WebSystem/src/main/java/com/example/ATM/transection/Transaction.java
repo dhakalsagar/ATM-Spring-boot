@@ -1,23 +1,14 @@
 package com.example.ATM.transection;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import jakarta.persistence.*;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import com.example.ATM.account.Account;
-import com.example.ATM.user.UserInfo;
-
 
 @Entity
 @Table(name = "transaction")
@@ -33,30 +24,27 @@ public class Transaction {
     @JoinColumn(name = "account_id")
     private Account account;
 
-   
     @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
-    
-    private LocalDateTime transactionDate;
 
-    
-    public String getFormattedTransactionDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return transactionDate.format(formatter);
-    }
+    private String transactionDate; // Changed to String
 
-    
     private double amount;
 
     private String accountName;
     private String accountNumber;
-    
+
     private String senderName;
     private String senderAccountNumber;
-    
+
     private String receiverName;
     private String receiverAccountNumber;
-    
+
+    public String getFormattedTransactionDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime localDateTime = LocalDateTime.parse(transactionDate, formatter);
+        return localDateTime.format(formatter);
+    }
 
     @PrePersist
     private void setTransactionDetails() {
@@ -64,7 +52,6 @@ public class Transaction {
             this.accountName = account.getName();
             this.accountNumber = account.getAccountNumber();
         }
-        this.transactionDate = LocalDateTime.now();
+        this.transactionDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 }
-

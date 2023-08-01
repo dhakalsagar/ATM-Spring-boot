@@ -27,7 +27,6 @@ public class UserInfo {
     @Column(unique = true)
     private String accountNumber;
     
-    
     @OneToOne(cascade = CascadeType.ALL)
     private Account account;
 }

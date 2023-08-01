@@ -11,19 +11,28 @@
 </head>
 
 <body>
- <div class="advertisement-info_left"></div>
+<!-- <div class="advertisement-info_left"></div>-->
   <div class="container">
     <div class="content" id="dashboard-content">
       <!-- Dashboard content goes here -->
       <h1>メニューを選択してください。</h1>
     <div class="menu">
-      <a href="#" class="menu-item" data-page="withdraw">お引き出し</a>
-      <a href="#" class="menu-item" data-page="deposit">預金入れ</a>
+    <div class="top_menu">
+      <a href="#" class="menu-item" data-page="withdraw">引き出し</a>
+      <a href="#" class="menu-item" data-page="deposit"> 預金入れ</a>
+      </div>
+      
+      <div class="mid_menu">
       <a href="#" class="menu-item" data-page="transfer">お振込み</a>
       <a href="/api/transactions/history" class="menu-item_history">履歴表示</a>
+      </div>
+      
+      <div class="down_menu">
       <a href="/user/logout" class="menu-item_history logout">ログアウト</a>
+      </div>
     </div>
     </div>
+    
     
     
     <div class="content" id="withdraw-content" style="display: none;">
@@ -85,9 +94,9 @@
   </div>
   
   
-	<div class="advertisement-info_right">
- 	<p id="advertisement-data"></p>
-	</div>
+<!--	<div class="advertisement-info_right">-->
+<!-- 	<p id="advertisement-data"></p>-->
+<!--	</div>-->
   <script src="/js/script.js"></script>
   <script src="/js/news_api.js"></script>
 </body>

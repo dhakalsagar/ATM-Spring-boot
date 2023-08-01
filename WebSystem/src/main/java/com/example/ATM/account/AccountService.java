@@ -1,6 +1,7 @@
 package com.example.ATM.account;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,10 +28,10 @@ public class AccountService {
 
             Transaction transaction = new Transaction();
             transaction.setAccount(account); // Set the account for the transaction
-            transaction.setSenderName("self");
+            transaction.setSenderName("自己");
             transaction.setSenderAccountNumber("-");
-            transaction.setTransactionDate(LocalDateTime.now());
-            transaction.setTransactionType(TransactionType.DEPOSIT);
+            transaction.setTransactionDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+            transaction.setTransactionType(TransactionType.預金入れ);
             transaction.setAmount(amount);
             transaction.setReceiverName("-");
             transaction.setReceiverAccountNumber("-");
@@ -55,8 +56,8 @@ public class AccountService {
         Transaction transaction = new Transaction();
         transaction.setSenderName("自己");
         transaction.setSenderAccountNumber("自己");
-        transaction.setTransactionDate(LocalDateTime.now());
-        transaction.setTransactionType(TransactionType.WITHDRAWAL);
+        transaction.setTransactionDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        transaction.setTransactionType(TransactionType.引き出し);
         transaction.setAmount(amount);
         transaction.setReceiverName("自己");
         transaction.setReceiverAccountNumber("自己");
@@ -80,8 +81,8 @@ public class AccountService {
             
 	        Transaction senderTransaction = new Transaction();
 	        senderTransaction.setAccount(senderAccount); // Set the account for the sender's transaction
-	        senderTransaction.setTransactionDate(LocalDateTime.now());
-	        senderTransaction.setTransactionType(TransactionType.TRANSFER);
+	        senderTransaction.setTransactionDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))); // Use the correct date-time format
+	        senderTransaction.setTransactionType(TransactionType.振込み);
 	        senderTransaction.setAmount(-amount);
 	        senderTransaction.setSenderName("自己");
 	        senderTransaction.setSenderAccountNumber("自己");
@@ -91,8 +92,8 @@ public class AccountService {
 	
 	        Transaction recipientTransaction = new Transaction();
 	        recipientTransaction.setAccount(recipientAccount); // Set the account for the recipient's transaction
-	        recipientTransaction.setTransactionDate(LocalDateTime.now());
-	        recipientTransaction.setTransactionType(TransactionType.RECEIVED);
+	        recipientTransaction.setTransactionDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+	        recipientTransaction.setTransactionType(TransactionType.受信);
 	        recipientTransaction.setAmount(amount);
 	        recipientTransaction.setReceiverName("自己");
 	        recipientTransaction.setReceiverAccountNumber("自己");
